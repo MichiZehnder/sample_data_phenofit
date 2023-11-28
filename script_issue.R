@@ -85,12 +85,10 @@ elm_fun <- function(t, mn, mx, sos, rsp, eos, rau, m7) {
 subsample  %>%
   left_join(all_params, by = c('year', 'station_id')) %>% 
   mutate(phenofit = elm_fun(doy, mn, mx, DER.sos, rsp, DER.eos, rau, m7)) %>% # here I generate the y values based on the parameters
-  #filter(year %in% c(2017:2019)) %>% 
   ggplot(.)+
   geom_point(aes(y = HS_plants, x = doy), size = 0.5) + 
   geom_path(aes(x = doy, y = phenofit, colour = "Phenofit"), size = 1)+
   geom_point(aes(y = HS_plants, x = doy, colour = "Plant signal"), size = 1) + 
-  geom_point(data = label_points, aes(x = x_values, y = phenofit_y, color = "SOS_points"), size = 5, shape =18)+
   geom_vline(aes(xintercept = DER.sos, color = "SOS"))+
   xlim(100, 340) + 
   ylim (0, 80) +
